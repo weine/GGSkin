@@ -44,19 +44,19 @@ namespace GGSkin
 
 
         //安裝面板
-        private void setupLolUI(string UIname)
+        private int setupLolUI(string UIname)
         {
             string targetFolder = lolFolder.Text + @"\";
             string targetFile = lolFolder.Text + @"\GGSkin.zip";
             string sourceFile = System.IO.Path.Combine(this.CurrentPath, @"UI\" + UIname);
+            int UIresult = 0;
             FileInfo UIFile = new FileInfo(sourceFile);
 
             //判斷是否有面板檔
             if (!UIFile.Exists)
             {
                 Console.WriteLine(this.CurrentPath + UIname);
-                MessageBox.Show("檔案不存在!");
-                return;
+                UIresult = 1;
                 
             }
 
@@ -64,22 +64,21 @@ namespace GGSkin
             if(String.IsNullOrEmpty(lolFolder.Text))
             {
                 Console.WriteLine("未設定LOL目錄!");
-                MessageBox.Show("未設定LOL目錄!");
-                return;
+                UIresult = 2;
             }
 
             //判斷資料夾存在
             if(!Directory.Exists(lolFolder.Text))
             {
-                MessageBox.Show("資料夾未存在!");
-                return;
+                Console.WriteLine("資料夾未存在!");
+                UIresult = 3;
             }
 
             //判斷是否為LOL執行檔目錄下
             if (!File.Exists(System.IO.Path.Combine(targetFolder, this.lolExe)))
             {
-                MessageBox.Show("不正確的LOL目錄!");
-                return;
+                Console.WriteLine("不正確的LOL目錄!");
+                UIresult = 4;
             }
 
             //檔案複製
@@ -90,10 +89,10 @@ namespace GGSkin
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
-                MessageBox.Show("套用面板失敗!");
-                return;
+                UIresult = 5;
             }
 
+            return UIresult;
             /*
             using (StreamWriter ClipzipFile = new StreamWriter(targetFolder + "test.TXT"))
             {
@@ -105,12 +104,19 @@ namespace GGSkin
         }
 
         //設定文件
-        private void setupDoc(int DocNo)
+        private void setupDoc(int DocNo, int UIcode)
         {
             string targetFolder = lolFolder.Text + @"\";
             string targetFile = lolFolder.Text + @"\ClientZips.TXT";
             string sourceFile = this.CurrentPath;
             
+            if(UIcode != 0)
+            {
+                Console.WriteLine(UIcode);
+                MessageBox.Show("面板套用失敗!");
+                return;
+            }
+
             //依文件編號判斷
             switch(DocNo)
             {
@@ -180,39 +186,36 @@ namespace GGSkin
         private void lolSkinDef_Click(object sender, EventArgs e)
         {
             //MessageBox.Show("功能尚未完成");
-            this.setupDoc(1);
+            this.setupDoc(1, 0);
         }
 
         //Foxe UI
         private void lolSkinFoxe_Click(object sender, EventArgs e)
         {
             string FoxeUI = @"Foxe.zip";
-            this.setupLolUI(FoxeUI);
-            this.setupDoc(2);
+
+            this.setupDoc(2, this.setupLolUI(FoxeUI));
         }
 
         //Peb UI
         private void lolSkinPeb_Click(object sender, EventArgs e)
         {
             string PebUI = @"Peb.zip";
-            this.setupLolUI(PebUI);
-            this.setupDoc(2);
+            this.setupDoc(2, this.setupLolUI(PebUI));
         }
 
         //Dean UI
         private void lolSkinDean_Click(object sender, EventArgs e)
         {
             string DeanUI = @"Dean.zip";
-            this.setupLolUI(DeanUI);
-            this.setupDoc(2);
+            this.setupDoc(2, this.setupLolUI(DeanUI));
         }
 
         //D-Hero UI
         private void lolSkinHero_Click(object sender, EventArgs e)
         {
             string DHeroUI = @"D-Heroes.zip";
-            this.setupLolUI(DHeroUI);
-            this.setupDoc(2);
+            this.setupDoc(2, this.setupLolUI(DHeroUI));
         }
 
         //安裝字型

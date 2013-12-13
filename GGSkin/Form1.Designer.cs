@@ -278,6 +278,7 @@
             this.fontBtn1.TabIndex = 23;
             this.fontBtn1.Text = "原廠";
             this.fontBtn1.UseVisualStyleBackColor = true;
+            this.fontBtn1.Click += new System.EventHandler(this.fontBtn1_Click);
             // 
             // fontBtn2
             // 
@@ -287,6 +288,7 @@
             this.fontBtn2.TabIndex = 24;
             this.fontBtn2.Text = "華康彩帶體";
             this.fontBtn2.UseVisualStyleBackColor = true;
+            this.fontBtn2.Click += new System.EventHandler(this.fontBtn2_Click);
             // 
             // fontBtn3
             // 
@@ -296,6 +298,7 @@
             this.fontBtn3.TabIndex = 25;
             this.fontBtn3.Text = "華康皮皮體";
             this.fontBtn3.UseVisualStyleBackColor = true;
+            this.fontBtn3.Click += new System.EventHandler(this.fontBtn3_Click);
             // 
             // fontBtn4
             // 
@@ -305,6 +308,7 @@
             this.fontBtn4.TabIndex = 26;
             this.fontBtn4.Text = "王漢宗綜藝體";
             this.fontBtn4.UseVisualStyleBackColor = true;
+            this.fontBtn4.Click += new System.EventHandler(this.fontBtn4_Click);
             // 
             // fontBtn5
             // 
@@ -314,6 +318,7 @@
             this.fontBtn5.TabIndex = 27;
             this.fontBtn5.Text = "方正蘭亭";
             this.fontBtn5.UseVisualStyleBackColor = true;
+            this.fontBtn5.Click += new System.EventHandler(this.fontBtn5_Click);
             // 
             // GGSkin
             // 

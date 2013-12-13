@@ -83,7 +83,16 @@ namespace GGSkin
             }
 
             //檔案複製
-            UIFile.CopyTo(targetFile, true);
+            try
+            {
+                UIFile.CopyTo(targetFile, true);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                MessageBox.Show("套用面板失敗!");
+                return;
+            }
 
             /*
             using (StreamWriter ClipzipFile = new StreamWriter(targetFolder + "test.TXT"))
@@ -152,7 +161,18 @@ namespace GGSkin
             }
 
             //檔案複製
-            lolCZ.CopyTo(targetFile, true);
+            try
+            {
+                lolCZ.CopyTo(targetFile, true);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("無法複製檔案");
+                MessageBox.Show("面板套用失敗!");
+                return;
+            }
+
             MessageBox.Show("面板套用成功!");
         }
 
@@ -193,6 +213,85 @@ namespace GGSkin
             string DHeroUI = @"D-Heroes.zip";
             this.setupLolUI(DHeroUI);
             this.setupDoc(2);
+        }
+
+        //安裝字型
+        private void setupFont(string fontType)
+        {
+            string sourceFont = String.Format(@"{0}Fonts\{1}.ttf", this.CurrentPath, fontType);
+            string targetFont = String.Format(@"{0}\DATA\Fonts\FZXHYSZK.ttf", lolFolder);
+
+            FileInfo lolfont = new FileInfo(sourceFont);
+
+            //驗證
+            if(!File.Exists(sourceFont))
+            {
+                Console.WriteLine("沒有字型檔!");
+                Console.WriteLine(sourceFont);
+                MessageBox.Show("字型變更失敗!");
+                return;
+            }
+
+            if (!Directory.Exists(lolFolder.Text))
+            {
+                Console.WriteLine("找不到LOL的FontS目錄");
+                Console.WriteLine(lolFolder.Text);
+                MessageBox.Show("字型變更失敗!");
+                return;
+            }
+
+            try
+            {
+                lolfont.CopyTo(targetFont, true);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                MessageBox.Show("字型變更失敗!");
+                return;
+            }
+
+            if (!File.Exists(targetFont))
+            {
+                Console.WriteLine("無法複製字型至目標資料夾!");
+                MessageBox.Show("字型變更失敗!");
+                return;
+            }
+
+            
+            MessageBox.Show("字型變更成功!");
+            
+            
+        }
+
+        //原廠字型
+        private void fontBtn1_Click(object sender, EventArgs e)
+        {
+            this.setupFont("default");
+        }
+
+        //華康彩帶體
+        private void fontBtn2_Click(object sender, EventArgs e)
+        {
+            this.setupFont("font2");
+        }
+
+        //華康皮皮體
+        private void fontBtn3_Click(object sender, EventArgs e)
+        {
+            this.setupFont("font3");
+        }
+
+        //王漢宗綜藝體
+        private void fontBtn4_Click(object sender, EventArgs e)
+        {
+            this.setupFont("font4");
+        }
+
+        //方正蘭亭粗黑
+        private void fontBtn5_Click(object sender, EventArgs e)
+        {
+            this.setupFont("font5");
         }
     }
 }
